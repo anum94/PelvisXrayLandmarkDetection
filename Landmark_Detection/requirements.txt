@@ -1,0 +1,5 @@
+pyTorch >= 0.4
+opencv-python
+tqdm
+tensorboard>=1.7.0
+tensorboardX>=1.2

@@ -13,17 +13,16 @@ from parse_config import ConfigParser
 
 
 def main(config, resume):
-    training_set = Dataset(data_dir+"/train")
-    data_loader = DataLoader(training_set, batch_size = batch_size)
-    
+    training_set = Dataset(data_dir + "/train")
+    data_loader = DataLoader(training_set, batch_size=batch_size)
+
     validation_set = Dataset(data_dir + "/validation")
     valid_data_loader = DataLoader(validation_set, batch_size=2)
-    
-    
-    model = config.initialize('arch', module_arch)
+
+    model = config.initialize("arch", module_arch)
 
     checkpoint = torch.load(resume)
-    state_dict = checkpoint['state_dict']
+    state_dict = checkpoint["state_dict"]
     model.load_state_dict(state_dict)
-    
+
     model.eval()

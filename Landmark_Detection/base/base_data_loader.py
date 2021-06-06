@@ -8,7 +8,18 @@ class BaseDataLoader(DataLoader):
     """
     Base class for all data loaders
     """
-    def __init__(self, dataset, batch_size, shuffle, validation_split, num_workers, limit_samples, num_samples_to_load, collate_fn=default_collate):
+
+    def __init__(
+        self,
+        dataset,
+        batch_size,
+        shuffle,
+        validation_split,
+        num_workers,
+        limit_samples,
+        num_samples_to_load,
+        collate_fn=default_collate,
+    ):
         self.validation_split = validation_split
         self.shuffle = shuffle
         self.num_samples_to_load = num_samples_to_load
@@ -24,11 +35,11 @@ class BaseDataLoader(DataLoader):
         self.sampler, self.valid_sampler = self._split_sampler(self.validation_split)
 
         self.init_kwargs = {
-            'dataset': dataset,
-            'batch_size': batch_size,
-            'shuffle': self.shuffle,
-            'collate_fn': collate_fn,
-            'num_workers': num_workers
+            "dataset": dataset,
+            "batch_size": batch_size,
+            "shuffle": self.shuffle,
+            "collate_fn": collate_fn,
+            "num_workers": num_workers,
         }
         super(BaseDataLoader, self).__init__(sampler=self.sampler, **self.init_kwargs)
 
@@ -43,7 +54,9 @@ class BaseDataLoader(DataLoader):
 
         if isinstance(split, int):
             assert split > 0
-            assert split < self.n_samples, "validation set size is configured to be larger than entire dataset."
+            assert (
+                split < self.n_samples
+            ), "validation set size is configured to be larger than entire dataset."
             len_valid = split
         else:
             len_valid = int(self.n_samples * split)
